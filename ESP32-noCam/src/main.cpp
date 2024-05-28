@@ -66,6 +66,9 @@ unsigned long ttime;
 bool lcdFlag = 0;
 unsigned long ttimeLcd;
 unsigned long lastTime = 110000;
+unsigned long ttimeButton;
+bool button;
+bool buttonFlag = 0;
 
 
 
@@ -586,6 +589,21 @@ void setup() //================================== SETUP ========================
   }
   Serial.println(F("This code scan the MIFARE Classsic NUID."));
 
+  // fingerprint scaner
+  finger.getTemplateCount();
+
+  if (finger.templateCount == 0)
+  {
+    Serial.print("Sensor doesn't contain any fingerprint data. Please run the 'enroll' example.");
+  }
+  else
+  {
+    Serial.println("Waiting for valid finger...");
+    Serial.print("Sensor contains ");
+    Serial.print(finger.templateCount);
+    Serial.println(" templates");
+  }
+
   pinMode(relayPIN, OUTPUT);
   pinMode(buttonPin, INPUT);
   pinMode(pirMotion, INPUT);
@@ -595,7 +613,18 @@ void setup() //================================== SETUP ========================
 void loop()
 {
   // put your main code here, to run repeatedly:
-  
+  button = !digitalRead(buttonPin);
+  if(button and !buttonFlag){
+    buttonFlag = 1;
+    ttimeButton = millis();
+    digitalWrite(bOut, 1);
+    Serial.println("button is pressed");
+  }
+  if(!button and buttonFlag and millis() - ttimeButton >= 2000){
+    digitalWrite(bOut, 0);
+    buttonFlag = 0;
+  }
+
   if (ENROL_MODE)
   {
     enrolFP();
