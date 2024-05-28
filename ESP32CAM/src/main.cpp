@@ -18,10 +18,15 @@ String BOTtoken = "6522577327:AAGn4BAjWrQE8hRRaIx2UEtWQ9TlxMg2y6M";  // your Bot
 String CHAT_ID = "777249826";
 
 bool sendPhoto = false;
+bool buttonFlag = 0;
+bool relayFlag = 0;
+unsigned long ttime;
 
 WiFiClientSecure clientTCP;
 UniversalTelegramBot bot(BOTtoken, clientTCP);
 
+#define relayPin 14
+#define buttonPin 12
 #define FLASH_LED_PIN 4
 bool flashState = LOW;
 
@@ -91,6 +96,12 @@ void configInitCamera(){
     delay(1000);
     ESP.restart();
   }
+  
+  // Access the camera sensor
+  sensor_t * s = esp_camera_sensor_get();
+  if (s) {
+    s->set_vflip(s, 1); // 1 to flip, 0 to not flip
+  }
 }
 
 void handleNewMessages(int numNewMessages) {
@@ -124,6 +135,13 @@ void handleNewMessages(int numNewMessages) {
     if (text == "/photo") {
       sendPhoto = true;
       Serial.println("New photo request");
+    }
+    if (text == "/open")
+    {
+      Serial.println("opening the door");
+      digitalWrite(relayPin, 1);
+      relayFlag = 1;
+      ttime = millis();
     }
   }
 }
@@ -236,20 +254,8 @@ void setup()
   Serial.println("WiFi connected");
   Serial.println("IP address: ");
   Serial.println(WiFi.localIP());
-}
-
-void loop() {
-  // put your main code here, to run repeatedly:
-
-}
-
-
-
-
-void setup(){
+  
   WRITE_PERI_REG(RTC_CNTL_BROWN_OUT_REG, 0); 
-  // Init Serial Monitor
-  Serial.begin(115200);
 
   // Set LED Flash as output
   pinMode(FLASH_LED_PIN, OUTPUT);
@@ -257,24 +263,11 @@ void setup(){
 
   // Config and init the camera
   configInitCamera();
-
-  // Connect to Wi-Fi
-  WiFi.mode(WIFI_STA);
-  Serial.println();
-  Serial.print("Connecting to ");
-  Serial.println(ssid);
-  WiFi.begin(ssid, password);
-  clientTCP.setCACert(TELEGRAM_CERTIFICATE_ROOT); // Add root certificate for api.telegram.org
-  while (WiFi.status() != WL_CONNECTED) {
-    Serial.print(".");
-    delay(500);
-  }
-  Serial.println();
-  Serial.print("ESP32-CAM IP Address: ");
-  Serial.println(WiFi.localIP()); 
 }
 
 void loop() {
+  // put your main code here, to run repeatedly:
+
   if (sendPhoto) {
     Serial.println("Preparing photo");
     sendPhotoTelegram(); 
@@ -290,3 +283,6 @@ void loop() {
     lastTimeBotRan = millis();
   }
 }
+
+
+
