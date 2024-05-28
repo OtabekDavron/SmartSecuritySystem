@@ -23,7 +23,7 @@ PubSubClient client(espClient);
 WiFiClient  client1;
 
 unsigned long myChannelNumber = 2;
-const char * myWriteAPIKey = "xxxxxxxxxxxxxxxx";
+const char * myWriteAPIKey = "9X3LFQDD0RDACX82";
 
 // LCD
 LiquidCrystal_I2C lcd(0x27, 20, 4); // set the LCD address to 0x27 for a 16 chars and 2 line display
@@ -46,18 +46,6 @@ bool lcdFlag = 0;
 unsigned long ttimeLcd;
 unsigned long lastTime = 110000;
 
-void callback(char *topic, byte *payload, unsigned int length)
-{
-  Serial.print("Message arrived in topic: ");
-  Serial.println(topic);
-  Serial.print("Message:");
-  for (int i = 0; i < length; i++)
-  {
-    Serial.print((char)payload[i]);
-  }
-  Serial.println();
-  Serial.println("-----------------------");
-}
 
 void callback(char *topic, byte *payload, unsigned int length)
 {
