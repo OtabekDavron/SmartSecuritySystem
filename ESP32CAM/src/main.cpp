@@ -268,19 +268,40 @@ void setup()
 void loop() {
   // put your main code here, to run repeatedly:
 
-  if (sendPhoto) {
+  if (sendPhoto)
+  {
     Serial.println("Preparing photo");
-    sendPhotoTelegram(); 
-    sendPhoto = false; 
+    sendPhotoTelegram();
+    sendPhoto = false;
   }
-  if (millis() > lastTimeBotRan + botRequestDelay)  {
+  if (buttonFlag)
+  {
+    buttonFlag = 0;
+  }
+  if (millis() > lastTimeBotRan + botRequestDelay)
+  {
     int numNewMessages = bot.getUpdates(bot.last_message_received + 1);
-    while (numNewMessages) {
+    while (numNewMessages)
+    {
       Serial.println("got response");
       handleNewMessages(numNewMessages);
       numNewMessages = bot.getUpdates(bot.last_message_received + 1);
     }
     lastTimeBotRan = millis();
+  }
+  if(digitalRead(buttonPin) and !buttonFlag){
+    Serial.println("signal from button");
+    buttonFlag = 1;
+    sendPhoto = 1;
+    bot.sendMessage(CHAT_ID, "this person wants to enter", "");
+  }
+  if(!digitalRead(buttonPin) and buttonFlag){
+    Serial.println("signal from button offfff");
+    buttonFlag = 0;
+  }
+  if(relayFlag and millis() - ttime >= 5000){
+    digitalWrite(relayPin, 0);
+    relayFlag = 0;
   }
 }
 
