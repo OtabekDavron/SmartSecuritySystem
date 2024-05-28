@@ -1,5 +1,14 @@
 #include <WiFiManager.h>
 
+
+
+//===========PINS==================
+#define relayPIN 25
+#define buttonPin 35
+#define pirMotion 32
+#define bOut 12
+#define rOut 14
+
 void setup()
 {
   Serial.begin(115200);
@@ -18,6 +27,12 @@ void setup()
   Serial.println("WiFi connected");
   Serial.println("IP address: ");
   Serial.println(WiFi.localIP());
+
+  pinMode(relayPIN, OUTPUT);
+  pinMode(buttonPin, INPUT);
+  pinMode(pirMotion, INPUT);
+  pinMode(bOut, OUTPUT);
+
 }
 
 void loop() {
