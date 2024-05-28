@@ -1,18 +1,26 @@
-#include <Arduino.h>
+#include <WiFiManager.h>
 
-// put function declarations here:
-int myFunction(int, int);
+void setup()
+{
+  Serial.begin(115200);
+  delay(10);
 
-void setup() {
-  // put your setup code here, to run once:
-  int result = myFunction(2, 3);
+  WiFiManager wifiManager;
+
+  if (!wifiManager.autoConnect("esp32noCam", "esp32nocam")) {
+    Serial.println("failed to connect and hit timeout");
+    //reset and try again, or maybe put it to deep sleep
+    ESP.restart();
+    delay(1000);
+  }
+
+  Serial.println("");
+  Serial.println("WiFi connected");
+  Serial.println("IP address: ");
+  Serial.println(WiFi.localIP());
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
-}
 
-// put function definitions here:
-int myFunction(int x, int y) {
-  return x + y;
 }
