@@ -13,11 +13,11 @@
 
 // MQTT Broker
 const char *mqtt_broker = "XXX.XXX.XXX.XXX"; //replace with the public IP of your VM instance on the Cloud
-const char *topic = "topic_for_esp32"; //replace with the MQTT topic for ESP32
-const char *subtopic1 = "topic_for_receiving_messages"; //replace with the topic for receiving messages
-const char *subtopic2 = "topic_for_printing_on_lcd"; //replace with the topicd for printing messages on LCD
-const char *mqtt_username = "xxxxxxxxxxx"; //replace with the username to access your MQTT Broker
-const char *mqtt_password = "xxxxxxxxxxx"; //replace with the password for that username
+const char *topic = "mqtt/esp32"; //replace with the MQTT topic for ESP32
+const char *subtopic1 = "mqtt/receive"; //replace with the topic for receiving messages
+const char *subtopic2 = "mqtt/lcd"; //replace with the topicd for printing messages on LCD
+const char *mqtt_username = "XXXXXXXX"; //replace with the username to access your MQTT Broker
+const char *mqtt_password = "XXXXXXXX"; //replace with the password for that username
 const int mqtt_port = 1884; // set the port number to connect to your MQTT Broker
 
 WiFiClient espClient;
