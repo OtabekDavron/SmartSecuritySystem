@@ -9,7 +9,9 @@
 #include <WiFiManager.h>
 
 
+
 // Initialize Telegram BOT                                       0
+
 String BOTtoken = "XXXXXXXXXX:XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX";  // your Bot Token (Get from Botfather)
 
 // Use @myidbot to find out the chat ID of an individual or a group
