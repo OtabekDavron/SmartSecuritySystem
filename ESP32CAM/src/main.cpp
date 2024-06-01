@@ -10,12 +10,12 @@
 
 
 // Initialize Telegram BOT
-String BOTtoken = "6522577327:AAGn4BAjWrQE8hRRaIx2UEtWQ9TlxMg2y6M";  // your Bot Token (Get from Botfather)
+String BOTtoken = "XXXXXXXXXX:XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX";  // your Bot Token (Get from Botfather)
 
 // Use @myidbot to find out the chat ID of an individual or a group
 // Also note that you need to click "start" on a bot before it can
 // message you
-String CHAT_ID = "777249826";
+String CHAT_ID = "XXXXXXXXX";
 
 bool sendPhoto = false;
 bool buttonFlag = 0;
