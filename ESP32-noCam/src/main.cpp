@@ -12,12 +12,12 @@
 #include <Adafruit_Fingerprint.h>
 
 // MQTT Broker
-const char *mqtt_broker = "51.20.105.27"; //
+const char *mqtt_broker = "XXXXXXXXX"; //
 const char *topic = "mqtt/esp32";
 const char *subtopic1 = "mqtt/receive";
 const char *subtopic2 = "mqtt/lcd";
-const char *mqtt_username = "userttpu";
-const char *mqtt_password = "studentpass";
+const char *mqtt_username = "XXXXXXXX";
+const char *mqtt_password = "XXXXXXXX";
 const int mqtt_port = 1884;
 
 WiFiClient espClient;
