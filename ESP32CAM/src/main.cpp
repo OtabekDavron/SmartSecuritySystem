@@ -306,6 +306,3 @@ void loop() {
     relayFlag = 0;
   }
 }
-
-
-
